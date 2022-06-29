@@ -7,7 +7,8 @@ var factory = new ConnectionFactory() {
     UserName = "admin",
     Password = "admin"
     };
-using(var connection = factory.CreateConnection())
+
+using(var connection = factory.CreateConnection()) //disposable
 using(var channel = connection.CreateModel())
 {
     channel.QueueDeclare(queue: "hello",

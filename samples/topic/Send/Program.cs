@@ -4,9 +4,9 @@ using System.Text;
 using System.Collections.Generic;
 
 var factory = new ConnectionFactory() { 
-    HostName = "localhost",
+    HostName = "143.244.137.227",
     UserName = "admin",
-    Password = "admin"
+    Password = "devInRabbit"
     };
 try{
     
@@ -58,8 +58,11 @@ var channel = connection.CreateModel();
         {"moto.honda.azul" ,"300"}, // A
         {"carro.fiat.azul" ,"500"}, // A e B
         {"moto.honda.vermelho" ,"600"}, // C
+        {"bicicleta.caloi.azul" ,"600"}, // C
+        {"bicicleta.caloi.vermelho" ,"600"}, // C
         // exemplo insifuciente uma vez que as keys poderiam se repetir e a estrutura Dictionary não o permite
     }; 
+
     foreach(var m in messages){
         
         var body = Encoding.UTF8.GetBytes(m.Value);
