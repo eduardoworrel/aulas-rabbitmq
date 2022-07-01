@@ -4,7 +4,26 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="post">
+<textarea id="texto"></textarea>
+<button id="disparar">Publicar</button>
 </div>
+<div id="publicacoes">
+
+</div>
+<script>
+    const publicacoes = document.querySelector("#publicacoes");
+
+    fetch("http://localhost:5293/api/Publicacao")
+    .then(m => m.json())
+    .then(data=>{
+        for(pub of data){
+            publicacoes.innerHTML += `
+                <p>
+                    <b>${pub.perfilId}</b><br>
+                    ${pub.texto}
+                </p>
+            `
+        }
+    })
+</script>
