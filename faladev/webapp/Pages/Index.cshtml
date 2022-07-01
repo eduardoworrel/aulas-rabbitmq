@@ -45,8 +45,8 @@
             }
             fetch('http://localhost:5293/api/Publicacao', body)
             .then(r =>{
-                if(r.statusCode >= 200 && r.statusCode < 300){
-                window.location.reload() 
+                if(r.status >= 200 && r.status < 300){
+                    window.location.reload() 
                 }
             })
             .catch(e=>{
@@ -60,9 +60,6 @@
 </div>
 <script>
 
-    
-
-
     const publicacoes = document.querySelector("#publicacoes");
     fetch("http://localhost:5293/api/Publicacao")
     .then(m => m.json())
@@ -71,7 +68,9 @@
             publicacoes.innerHTML += `
                 <p>
                     <b>${pub.perfilId}</b><br>
-                    ${pub.texto}
+                       ${pub.texto}
+                       <br>
+                       <small style='float:rigth'>${pub.dataHoraCriacao}</small>
                 </p>
             `
         }

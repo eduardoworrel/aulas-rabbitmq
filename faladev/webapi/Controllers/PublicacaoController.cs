@@ -28,7 +28,9 @@ namespace webapi
           {
               return NotFound();
           }
-            return await _context.Publicacoes.ToListAsync();
+            return await _context.Publicacoes
+            .OrderByDescending(a=> a.DataHoraCriacao)
+            .ToListAsync();
         }
 
         // GET: api/Publicacao/5
