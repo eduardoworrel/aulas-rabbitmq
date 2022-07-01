@@ -1,19 +1,69 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Home page";
 }
+@if (SignInManager.IsSignedIn(User))
+{
+    <div id="post">
+        <textarea id="texto"></textarea>
+        <button id="disparar">Publicar</button>
+    </div>
+    <input type="hidden" value="@User.Identity?.Name" id="tokenId">
+    <script>
+        const inputTexto = document.querySelector("#texto");
+        const btnDisparar = document.querySelector("#disparar");
+    
+    
+        btnDisparar.addEventListener("click", ()=>{
+            const tokenId = document.querySelector("#tokenId").value;
+            const textoAtual = inputTexto.value;
+            
+            if(textoAtual.length < 1){
+                alert("digite algo");
+                return;
+            }
 
-<div id="post">
-<textarea id="texto"></textarea>
-<button id="disparar">Publicar</button>
-</div>
+            inputTexto.value = null;
+
+            const body = {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        PerfilId: tokenId,
+                        texto: textoAtual,
+                        DataHoraCriacao: null
+                    })
+            }
+            fetch('http://localhost:5293/api/Publicacao', body)
+            .then(r =>{
+                if(r.statusCode >= 200 && r.statusCode < 300){
+                window.location.reload() 
+                }
+            })
+            .catch(e=>{
+                alert(e)
+            })
+        });
+    </script>
+}
 <div id="publicacoes">
 
 </div>
 <script>
-    const publicacoes = document.querySelector("#publicacoes");
 
+    
+
+
+    const publicacoes = document.querySelector("#publicacoes");
     fetch("http://localhost:5293/api/Publicacao")
     .then(m => m.json())
     .then(data=>{

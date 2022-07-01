@@ -89,6 +89,7 @@ namespace webapi
           {
               return Problem("Entity set 'MyContext.Publicacoes'  is null.");
           }
+           publicacao.DataHoraCriacao = DateTime.Now;
             _context.Publicacoes.Add(publicacao);
             await _context.SaveChangesAsync();
 
