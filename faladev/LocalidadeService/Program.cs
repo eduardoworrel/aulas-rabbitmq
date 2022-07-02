@@ -23,11 +23,7 @@ using(var channel = connection.CreateModel())
         var publicacao = JsonConvert.DeserializeObject
         <PublicacaoRefinada>(Encoding.UTF8.GetString(body));
         
-        var webClient = new HttpClient();
-        var IpHttpResponse = webClient.GetAsync("http://freegeoip.net/json/"+ publicacao.IP, content).Result;
-        dynamic dynObj = JsonConvert.DeserializeObject(IpHttpResponse);
-        publicacao.CidadeDaPublicacao = dynObj.city;
-
+        publicacao.CidadeDaPublicacao = "Macapá";
         string uri = $"http://localhost:5228/api/PublicacaoRefinada";
         var cliente = new HttpClient();
 
